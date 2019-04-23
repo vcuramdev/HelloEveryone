@@ -1,3 +1,6 @@
+
+from random import choice
+
 from google.cloud import translate
 
 
@@ -10,13 +13,14 @@ def main():
     text = u"Hello, everyone"
 
     # The target language
-    target = "ru"
+    target = choice(client.get_language())
 
     # Translation
-    translation = translate_client.translate(text, target_language=target)
+    translation = translate_client.translate(text, target_language=target.language)
 
-    print(u"Text: {}".format(text))
-    print(u"Translation: {}".format(translation["translatedText"]))
+    print(u"Language: '{}'".format(target.name))
+    print(u"Text: '{}'".format(text))
+    print(u"Translation: '{}'".format(translation["translatedText"]))
 
 
 if __name__ == "__main__":
