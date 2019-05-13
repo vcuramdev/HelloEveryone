@@ -11,7 +11,7 @@ setup(
     long_description=open("README.rst").read(),
     long_description_content_type="text/x-rst",
     author="John Naylor",
-    author_email="ramdev@vcu.edu",
+    author_email="jonaylor89@gmail.com",
     url="https://github.com/vcuramdev/HelloEveryone",
     download_url="https://github.com/vcuramdev/HelloEveryone/archive/v_1.0.tar.gz",
     keywords=["translate", "google"],
