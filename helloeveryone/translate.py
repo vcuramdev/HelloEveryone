@@ -1,27 +1,41 @@
 #!/usr/bin/env python3
 
 from random import choice
-
-from google.cloud import translate
+from time import sleep
+from google.cloud import translate_v3beta1 as translate
 
 
 def main():
 
+
     # Instantiates a client
-    client = translate.Client()
+    client = translate.TranslationServiceClient()
+
+    project_id = "hello-everyone-240322"
+    location = "global"
+
+    parent = client.location_path(project_id, location)
 
     # The text to translate
-    text = u"Hello, everyone"
+    text = "Hello, everyone"
 
     # The target language
-    target = choice(client.get_languages())
+    target = choice(client.get_supported_languages(parent).languages).language_code
 
     # Translation
-    translation = client.translate(text, target_language=target["language"])
+    resp = client.translate_text(
+        parent=parent,
+        contents=[text],
+        mime_type='text/plain',  # mime types: text/plain, text/html
+        source_language_code='en-US',
+        target_language_code=target
+    )
 
-    print(u"Language: '{}'".format(target["name"]))
-    print(u"Text: '{}'".format(text))
-    print(u"Translation: '{}'".format(translation["translatedText"]))
+    # print("Language: '{}'".format(target["name"]))
+    for translation in resp.translations:
+        print("Translation: {}".format(translation.translated_text))
+
+    # ----------------------------------------
 
 
 if __name__ == "__main__":
