@@ -31,9 +31,8 @@ def main():
         target_language_code=target
     )
 
-    print("Language: '{}'".format(target))
     for translation in resp.translations:
-        print(translation.translated_text)
+        print(f"'{target}' -> '{translation.translated_text}'")
 
     # ----------------------------------------
 
